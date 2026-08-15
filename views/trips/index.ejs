@@ -1,0 +1,26 @@
+<% layout("/layouts/boilerplate") %>
+<div class="row mt-3">
+    <div class="col-8 offset-2">
+        <h2>My AI Trips</h2>
+        <% if (itineraries && itineraries.length > 0) { %>
+            <div class="row row-cols-1 mt-3">
+                <% for (let trip of itineraries) { %>
+                    <a href="/trips/<%= trip._id %>" class="listing-link">
+                        <div class="card mb-3 listing-card">
+                            <div class="card-body">
+                                <h5 class="card-title">Trip to <%= trip.destination %></h5>
+                                <p class="card-text">
+                                    <%= trip.startDate.toDateString() %> - <%= trip.endDate.toDateString() %> <br>
+                                    <strong>Budget:</strong> <%= trip.budgetTier %> | <strong>Group Size:</strong> <%= trip.groupSize %>
+                                </p>
+                            </div>
+                        </div>
+                    </a>
+                <% } %>
+            </div>
+        <% } else { %>
+            <p>You haven't generated any trips yet.</p>
+            <a href="/trips/new" class="btn btn-dark">Plan a Trip Now</a>
+        <% } %>
+    </div>
+</div>

@@ -17,3 +17,12 @@ module.exports.reviewSchema=Joi.object({
     comment:Joi.string().required(),
   }).required() 
 });
+
+module.exports.tripSchema = Joi.object({
+    destination: Joi.string().required(),
+    startDate: Joi.date().required(),
+    endDate: Joi.date().required().min(Joi.ref('startDate')),
+    groupSize: Joi.number().required().min(1),
+    budgetTier: Joi.string().valid("budget", "mid-range", "luxury").required(),
+    interests: Joi.array().items(Joi.string().valid("adventure", "food", "culture", "relaxation", "nature", "nightlife")).min(1).required()
+});

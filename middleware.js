@@ -1,7 +1,8 @@
  const Listing =require("./models/listing");
   const Review =require("./models/review");
+ const Itinerary = require("./models/itinerary");
  const ExpressError=require("./utils/ExpressError.js");
-const {listingSchema,reviewSchema} =require("./schema.js");
+const {listingSchema,reviewSchema, tripSchema} =require("./schema.js");
  
 module.exports.isLoggedIn =(req,res,next) =>{
      if(!req.isAuthenticated()){
@@ -63,4 +64,24 @@ module.exports.isreviewauthor =async(req,res,next) =>{
    }
 
    next();
+};
+
+module.exports.isTripOwner = async(req,res,next) => {
+    let {id} = req.params;
+    let itinerary = await Itinerary.findById(id);
+    if(!itinerary.user.equals(res.locals.currUser._id)){
+        req.flash("error", "You are not the owner of this trip");
+        return res.redirect(`/trips`);
+    }
+    next();
+};
+
+module.exports.validateTrip = (req,res,next) => {
+    let {error} = tripSchema.validate(req.body);
+    if(error){
+        let errMsg = error.details.map((el) =>el.message).join(",");
+        throw new ExpressError(400, errMsg);
+    } else {
+        next();
+    }
 };

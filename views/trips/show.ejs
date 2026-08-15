@@ -1,0 +1,58 @@
+<% layout("/layouts/boilerplate") %>
+<div class="row mt-3">
+    <div class="col-8 offset-2">
+        <h3>Trip to <%= itinerary.destination %></h3>
+        <p class="text-muted">
+            <%= itinerary.startDate.toDateString() %> - <%= itinerary.endDate.toDateString() %> 
+            (<%= itinerary.days.length %> Days, <%= itinerary.groupSize %> People)
+        </p>
+        <div class="alert alert-info">
+            <strong>Total Estimated Cost: </strong> &#8377; <%= itinerary.totalEstimatedCost.toLocaleString("en-IN") %>
+        </div>
+
+        <div class="accordion mt-4" id="tripAccordion">
+            <% for(let day of itinerary.days) { %>
+                <div class="accordion-item">
+                    <h2 class="accordion-header" id="heading<%= day.dayNumber %>">
+                        <button class="accordion-button <%= day.dayNumber !== 1 ? 'collapsed' : '' %>" type="button" data-bs-toggle="collapse" data-bs-target="#collapse<%= day.dayNumber %>" aria-expanded="<%= day.dayNumber === 1 ? 'true' : 'false' %>" aria-controls="collapse<%= day.dayNumber %>">
+                            <strong>Day <%= day.dayNumber %>: <%= day.theme %></strong>
+                        </button>
+                    </h2>
+                    <div id="collapse<%= day.dayNumber %>" class="accordion-collapse collapse <%= day.dayNumber === 1 ? 'show' : '' %>" aria-labelledby="heading<%= day.dayNumber %>" data-bs-parent="#tripAccordion">
+                        <div class="accordion-body">
+                            
+                            <% if (day.suggestedListing) { %>
+                                <div class="card mb-3 listing-card" style="max-width: 540px;">
+                                    <div class="row g-0">
+                                        <div class="col-md-4">
+                                            <img src="<%= day.suggestedListing.image.url %>" class="img-fluid rounded-start h-100 object-fit-cover" alt="Suggested Stay">
+                                        </div>
+                                        <div class="col-md-8">
+                                            <div class="card-body">
+                                                <h5 class="card-title">Suggested Stay</h5>
+                                                <p class="card-text"><a href="/listings/<%= day.suggestedListing._id %>"><%= day.suggestedListing.title %></a></p>
+                                                <p class="card-text"><small class="text-muted">&#8377; <%= day.suggestedListing.price.toLocaleString("en-IN") %> / night</small></p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            <% } %>
+
+                            <ul class="list-group list-group-flush">
+                                <% for (let activity of day.activities) { %>
+                                    <li class="list-group-item">
+                                        <strong><%= activity.time %>:</strong> <%= activity.title %> 
+                                        <span class="badge bg-secondary float-end"><%= activity.category %></span>
+                                        <br>
+                                        <small class="text-muted"><%= activity.description %></small><br>
+                                        <small><strong>Cost:</strong> &#8377; <%= activity.estimatedCost.toLocaleString("en-IN") %></small>
+                                    </li>
+                                <% } %>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            <% } %>
+        </div>
+    </div>
+</div>

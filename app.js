@@ -17,6 +17,7 @@ const flash=require("connect-flash");
 const listingRouter =require("./routes/listing.js");
 const reviewRouter=require("./routes/review.js");
 const userRouter=require("./routes/user.js");
+const tripsRouter=require("./routes/trips.js");
 
 const passport =require("passport");
 const LocalStrategy = require ("passport-local");
@@ -60,6 +61,11 @@ const sessionOptions={
     },
 };
 
+app.use((req, res, next) => {
+    res.locals.currUser = null;
+    next();
+});
+
 app.use(session(sessionOptions));
 app.use(flash());
 
@@ -94,6 +100,7 @@ app.use((req,res,next) =>{
 app.use("/listings",listingRouter);
 app.use("/listings/:id/reviews",reviewRouter);
 app.use("/",userRouter);
+app.use("/trips", tripsRouter);
 
 app.get("/", (req, res) => {
     res.redirect("/listings");

@@ -1,0 +1,74 @@
+<% layout("/layouts/boilerplate")%>
+<div class="row mt-3">
+    <div class="col-8 offset-2">
+        <h2>Plan an AI Trip</h2>
+        <form method="POST" action="/trips" novalidate class="needs-validation">
+            <div class="mb-3">
+                <label for="destination" class="form-label">Destination</label>
+                <input name="destination" placeholder="Where do you want to go?" type="text" class="form-control" value="<%= listing ? (listing.location + ', ' + listing.country) : '' %>" required>
+                <div class="invalid-feedback">Please enter a destination</div>
+            </div>
+            
+            <div class="row">
+                <div class="mb-3 col-md-6">
+                    <label for="startDate" class="form-label">Start Date</label>
+                    <input name="startDate" type="date" class="form-control" required>
+                    <div class="invalid-feedback">Please enter a start date</div>
+                </div>
+                <div class="mb-3 col-md-6">
+                    <label for="endDate" class="form-label">End Date</label>
+                    <input name="endDate" type="date" class="form-control" required>
+                    <div class="invalid-feedback">Please enter an end date</div>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="mb-3 col-md-6">
+                    <label for="groupSize" class="form-label">Group Size</label>
+                    <input name="groupSize" type="number" min="1" placeholder="Number of people" class="form-control" required>
+                    <div class="invalid-feedback">Please enter a valid group size</div>
+                </div>
+                <div class="mb-3 col-md-6">
+                    <label for="budgetTier" class="form-label">Budget Tier</label>
+                    <select name="budgetTier" class="form-select" required>
+                        <option value="" disabled selected>Select a budget tier</option>
+                        <option value="budget">Budget (<= 3000 / night)</option>
+                        <option value="mid-range">Mid-Range (3000 - 8000 / night)</option>
+                        <option value="luxury">Luxury (> 8000 / night)</option>
+                    </select>
+                    <div class="invalid-feedback">Please select a budget tier</div>
+                </div>
+            </div>
+
+            <div class="mb-3">
+                <label class="form-label">Interests (Select at least one)</label><br>
+                <div class="form-check form-check-inline">
+                    <input class="form-check-input" type="checkbox" name="interests[]" id="adventure" value="adventure">
+                    <label class="form-check-label" for="adventure">Adventure</label>
+                </div>
+                <div class="form-check form-check-inline">
+                    <input class="form-check-input" type="checkbox" name="interests[]" id="food" value="food">
+                    <label class="form-check-label" for="food">Food</label>
+                </div>
+                <div class="form-check form-check-inline">
+                    <input class="form-check-input" type="checkbox" name="interests[]" id="culture" value="culture">
+                    <label class="form-check-label" for="culture">Culture</label>
+                </div>
+                <div class="form-check form-check-inline">
+                    <input class="form-check-input" type="checkbox" name="interests[]" id="relaxation" value="relaxation">
+                    <label class="form-check-label" for="relaxation">Relaxation</label>
+                </div>
+                <div class="form-check form-check-inline">
+                    <input class="form-check-input" type="checkbox" name="interests[]" id="nature" value="nature">
+                    <label class="form-check-label" for="nature">Nature</label>
+                </div>
+                <div class="form-check form-check-inline">
+                    <input class="form-check-input" type="checkbox" name="interests[]" id="nightlife" value="nightlife">
+                    <label class="form-check-label" for="nightlife">Nightlife</label>
+                </div>
+            </div>
+
+            <button class="btn btn-dark add-btn mt-3">Generate Trip</button>
+        </form>
+    </div>
+</div>
