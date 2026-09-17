@@ -4,9 +4,17 @@
 <style>
   #filters{
     display:flex;
-    flex-wrap:wrap;
+    flex-wrap: nowrap;
     align-items: center;
-  }  
+    overflow-x: auto;
+  }
+  #filters::-webkit-scrollbar {
+    display: none;
+  }
+  #filters {
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+  }
 
   .filter{
     text-align:center;
