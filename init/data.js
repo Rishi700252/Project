@@ -376,6 +376,30 @@ const sampleListings = [
     country: "Costa Rica",
     category: "Amazing Pools"
   },
+  {
+    title: "Beautiful Countryside Farmhouse",
+    description: "Enjoy fresh air and open spaces in this serene farmhouse surrounded by acres of greenery.",
+    image: {
+      filename: "listingimage",
+      url: "https://images.unsplash.com/photo-1500382017468-9049fed747ef?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=60"
+    },
+    price: 600,
+    location: "Nashville",
+    country: "United States",
+    category: "Farms"
+  },
+  {
+    title: "Luxury Glamping Dome",
+    description: "Sleep under the stars with all the comforts of a luxury hotel in this unique glamping dome.",
+    image: {
+      filename: "listingimage",
+      url: "https://images.unsplash.com/photo-1510798831971-661eb04b3739?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=60"
+    },
+    price: 350,
+    location: "Joshua Tree",
+    country: "United States",
+    category: "Domes"
+  }
 ];
 
 module.exports = { data: sampleListings };
